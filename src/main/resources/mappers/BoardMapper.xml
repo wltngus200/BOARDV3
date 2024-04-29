@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.boardver3.board.BoardMapper">
+
+    <insert id="newPost">
+        INSERT INTO board
+        SET title=#{title},
+        contents=#{contents},
+        writer_id=#{writerId}
+    </insert>
+
+    <delete id="deletePost">
+        DELETE
+        FROM board
+        WHERE board_id=#{boardId}
+    </delete>
+
+    <select id="lookAll">
+        SELECT A.board_id AS boardId, A.title, A.contents, B.uid AS writer,
+            A.hits, A.created_at AS createdAt, A.updated_at AS updatedAt
+        FROM board A
+        INNER JOIN user B
+        ON B.user_id=A.writer_id
+        ORDER BY A.board_id DESC
+        LIMIT #{startNum}, #{length}
+    </select>
+
+    <select id="lookOne">
+        SELECT A.board_id AS boardId, A.title, A.contents, B.uid,
+        A.hits, A.created_at AS createdAt, A.updated_at AS updatedAt
+        FROM board A
+        INNER JOIN user B
+        ON B.user_id=A.writer_id
+        WHERE board_id=#{boardId}
+    </select>
+
+    <update id="hitsUp">
+        UPDATE board
+        SET hits=hits+1
+        WHERE board_id=#{boardId}
+    </update>
+
+</mapper>
