@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.boardver3.comment.CommentMapper">
+    <insert id="postComment">
+        INSERT INTO comment
+        (contents, writer_id, board_id)
+        VALUES
+        (#{contents}, #{writerId}, #{boardId})
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE
+        FROM comment
+        WHERE comment_id=#{commentId}
+        AND writer_id=#{writerId}
+        <!--인증처리 과정이 들어가면 자연적으로 pk값이 들어감-->
+    </delete>
+
+</mapper>

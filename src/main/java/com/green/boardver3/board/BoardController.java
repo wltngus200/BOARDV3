@@ -17,7 +17,7 @@ import static java.util.stream.DoubleStream.builder;
 public class BoardController {
     private final BoardService service;
 
-    @PostMapping//그냥 내가 싫니?
+    @PostMapping
     ResultDto<Integer> newPost(@RequestBody PostBoard p){
         int result=service.newPost(p);
         return ResultDto.<Integer>builder()
