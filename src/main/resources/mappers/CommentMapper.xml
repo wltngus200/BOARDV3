@@ -17,4 +17,36 @@
         <!--인증처리 과정이 들어가면 자연적으로 pk값이 들어감-->
     </delete>
 
+    <update id="updateComment">
+        UPDATE comment
+        SET contents=#{contents}
+        WHERE writer_id=#{writerId}
+        AND comment_id=#{commentId}
+    </update>
+
+    <!--코멘트는 게시글에 종속되기 때문에 별도로 작성-->
+    <select id="selectComment">
+        SELECT A.board_id AS boardId, A.contents, A.writer_id AS writerId, B.uid, A.created_at AS createdAt
+        FROM comment A
+        INNER JOIN user B
+        ON user_id=writer_id
+        WHERE A.board_id=#{boardId}
+    </select>
+
+    <select id="getComments">
+        SELECT A.comment_id AS commentId, A.contents, A.writer_id AS writerId, B.nm AS writerName, A.created_at AS createdAt
+        FROM comment A
+        INNER JOIN user B
+        ON A.writer_id=B.user_id
+        WHERE A.board_id=#{boardId}
+        ORDER BY A.comment_id
+        LIMIT #{startNum}, #{size}
+    </select>
+
+    <select id="getTotalCommentPage">
+        SELECT CEIL(COUNT(comment_id)/#{len})
+        FROM comment
+        WHERE board_id=#{boardId}
+        <!--CEIL은 올림(ex. 4.5 -> 5)-->
+</select>
 </mapper>
