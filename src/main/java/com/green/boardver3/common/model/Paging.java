@@ -15,7 +15,7 @@ public class Paging {
     @JsonIgnore
     private int startNum;//n에 들어가야 됨
     private int size;//m에 들어가야됨
-    //LINIT N, M (N부터 5개)
+    //LIMIT N, M (N부터 5개)
     @ConstructorProperties({"page", "size"})
     public Paging(Integer page, Integer size){
         this.page=(page==null?1:page);
