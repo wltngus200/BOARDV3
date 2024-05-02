@@ -17,8 +17,8 @@
     </delete>
 
     <select id="lookAll">
-        SELECT A.board_id AS boardId, A.title, A.contents, B.uid AS writer,
-            A.hits, A.created_at AS createdAt, A.updated_at AS updatedAt
+        SELECT A.board_id AS boardId, A.title, A.writer_id AS writerId,
+            B.nm AS writerNm, A.hits, A.created_at AS createdAt
         FROM board A
         INNER JOIN user B
         ON B.user_id=A.writer_id

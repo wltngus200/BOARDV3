@@ -11,13 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//swagger 이름 변경
-@Tag(name="Board (게시판)",description="게시판 CRUD")
-//로그 찍기 스프링 로그 포 J
-@Slf4j
+
 @RestController
 @RequestMapping("board")
 @RequiredArgsConstructor
+
+
+@Slf4j //로그 찍기
+@Tag(name="Board (게시판)",description="게시판 CRUD") //swagger 이름 변경
 public class BoardController {
     private final BoardService service;
 
@@ -34,6 +35,7 @@ public class BoardController {
                 .build();
     }
     @DeleteMapping("{boardId}")
+    @Operation(summary="게시글 삭제", description="게시글을 삭제할 수 있습니다.")
     ResultDto<Integer> deletePost(@RequestParam long boardId){
         int result=service.deletePost(boardId);
         return ResultDto.<Integer>builder()
@@ -44,15 +46,16 @@ public class BoardController {
     }
 
     @GetMapping//ALL
-    ResultDto<List<GetBoardAll>> lookAll(Paging p){
+    ResultDto<List<GetBoardAll>> lookAll(@ModelAttribute Paging p){
         List<GetBoardAll> list=service.lookAll(p);
         return ResultDto.<List<GetBoardAll>>builder()
                 .status(HttpStatus.OK)
-                .resultMsg(HttpStatus.OK.toString())
+                .resultMsg(String.format("rowCount: %d", list.size()))
                 .resultData(list)
                 .build();
     }
     @GetMapping("{boardId}")
+    @Operation(summary="게시글 조회", description="게시글 내용을 열람할 수 있습니다.")
     ResultDto<GetBoardOne> lookOne(@PathVariable long boardId){
         GetBoardOne result=service.lookOne(boardId);
         return ResultDto.<GetBoardOne>builder()
@@ -61,5 +64,4 @@ public class BoardController {
                 .resultData(result)
                 .build();
     }
-
 }

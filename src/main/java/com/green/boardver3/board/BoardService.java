@@ -7,6 +7,7 @@ import com.green.boardver3.comment.model.CommentPaging;
 import com.green.boardver3.comment.model.CommentPostReq;
 import com.green.boardver3.common.GlobalConst;
 import com.green.boardver3.common.model.Paging;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,18 @@ public class BoardService {
     int deletePost(long boardId){
         return mapper.deletePost(boardId);
     }
+
+
+
+
+
+
     List<GetBoardAll> lookAll(Paging p){
         return mapper.lookAll(p);
     }
+
+
+
     GetBoardOne lookOne(long boardId){
         GetBoardOne result = mapper.lookOne(boardId);
         if(result!=null) {mapper.hitsUp(boardId);}

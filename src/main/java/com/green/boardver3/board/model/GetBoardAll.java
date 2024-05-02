@@ -13,8 +13,8 @@ import java.beans.ConstructorProperties;
 public class GetBoardAll {
     private long board_id;
     private String title;
-    private String contents;
     private String writerId;
+    private String writerNm;
     private int hits;
     private String createdAt;
     private String updatedAt;
