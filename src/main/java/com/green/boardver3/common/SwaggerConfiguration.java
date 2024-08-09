@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 @Configurable
 @OpenAPIDefinition(
         info=@Info(
-                //스웨거의 상단 수정 //타이틀, 타이틀에 대한 설명, 버전
+
                 title="Board Ver3",
                 description="CRUD Board Study",
                 version="v.0.0.3"
